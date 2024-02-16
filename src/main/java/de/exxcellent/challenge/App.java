@@ -8,7 +8,6 @@ import com.opencsv.CSVReaderBuilder;
 
 import dataClasses.FootballDataSet;
 import dataClasses.WeatherDataSet;
-import fileReader.CSVClassMapper;
 import fileReader.FootballMapper;
 import fileReader.IClassMapper;
 import fileReader.WeatherMapper;

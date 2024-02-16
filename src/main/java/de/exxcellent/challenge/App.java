@@ -6,6 +6,13 @@ import java.util.Scanner;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
+import dataClasses.FootballDataSet;
+import dataClasses.WeatherDataSet;
+import fileReader.CSVClassMapper;
+import fileReader.FootballMapper;
+import fileReader.IClassMapper;
+import fileReader.WeatherMapper;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
@@ -29,18 +36,17 @@ public final class App {
 		// Your preparation code …
 		
 		try {	
-			
-	        List<FootballDataSet> allFootballData = CSVClassMapper.MapFootballCSV();
-	        List<WeatherDataSet> allWeatherData = CSVClassMapper.MapWeatherCSV();
+			FootballMapper footballMapper = new FootballMapper();
+			WeatherMapper weatherMapper = new WeatherMapper();
+	        List<FootballDataSet> allFootballData = footballMapper.MapData();
+	        List<WeatherDataSet> allWeatherData = weatherMapper.MapData();
 	        
 	        DataAnalyzer dataAnalyzer = new DataAnalyzer();
 	        FootballDataSet smallestGoalSpread = dataAnalyzer.GetSmallestGoalSpread(allFootballData);
 	        WeatherDataSet smallestTemperatureSpread = dataAnalyzer.GetSmallestTemperatureSpread(allWeatherData);
 	        
-	        String dayWithSmallestTempSpread = "Someday"; // Your day analysis function call …
 			System.out.printf("Day with smallest temperature spread : %s%n", smallestTemperatureSpread.getDay());
 
-			String teamWithSmallestGoalSpread = "A good team"; // Your goal analysis function call …
 			System.out.printf("Team with smallest goal spread       : %s%n", smallestGoalSpread.getTeam());
 	        
             

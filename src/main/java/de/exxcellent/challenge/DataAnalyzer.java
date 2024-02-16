@@ -4,6 +4,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import dataClasses.FootballDataSet;
+import dataClasses.WeatherDataSet;
+
 public class DataAnalyzer {
 	
 	

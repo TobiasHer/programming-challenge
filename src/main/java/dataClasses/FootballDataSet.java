@@ -1,4 +1,4 @@
-package de.exxcellent.challenge;
+package dataClasses;
 
 public class FootballDataSet {
 	private String team;

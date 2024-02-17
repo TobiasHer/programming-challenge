@@ -3,6 +3,8 @@ package de.exxcellent.challenge;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.sun.tools.javac.Main;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
@@ -13,21 +15,19 @@ import java.io.IOException;
  */
 class AppTest {
 
-    private String successLabel = "not successful";
+    private int dayWithSmallestSpread = -1;
+    private String teamWithSmallestSpread = "";
 
     @BeforeEach
-    void setUp() {
-        successLabel = "successful";
+    void setUpAppTest() throws IOException {
+        dayWithSmallestSpread = App.GetSmallestTemperatureSpread();
+        teamWithSmallestSpread = App.GetSmallestGoalSpread();
     }
-
+    
     @Test
-    void aPointlessTest() {
-        assertEquals("successful", successLabel, "My expectations were not met");
+    void appTest() {
+        assertEquals(14, dayWithSmallestSpread, "My expectations were not met");
+        assertEquals("Arsenal", teamWithSmallestSpread, "My expectations were not met");
     }
-
-    @Test
-    void runFootball() throws IOException {
-        App.main("weather.csv", "football.csv");
-    }
-
+    
 }

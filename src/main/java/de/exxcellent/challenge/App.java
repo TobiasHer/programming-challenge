@@ -1,19 +1,11 @@
 package de.exxcellent.challenge;
 
 import java.util.List;
-import java.util.Scanner;
-
-import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
-
 import dataClasses.FootballDataSet;
 import dataClasses.WeatherDataSet;
 import fileReader.FootballMapper;
-import fileReader.IClassMapper;
 import fileReader.WeatherMapper;
-
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 /**
  * The entry class for your solution. This class is only aimed as starting point
@@ -28,33 +20,37 @@ public final class App {
 	 * This is the main entry method of your program.
 	 * 
 	 * @param args The CLI arguments passed
-	 * @throws IOException 
+	 * @throws IOException
 	 */
-	public static void main(String... args) throws IOException {
+	public static int GetSmallestTemperatureSpread() throws IOException {
+		WeatherMapper weatherMapper = new WeatherMapper();
+		List<WeatherDataSet> allWeatherData = weatherMapper.MapData();
+		DataAnalyzer dataAnalyzer = new DataAnalyzer();
+		WeatherDataSet smallestTemperatureSpread = dataAnalyzer.GetSmallestTemperatureSpread(allWeatherData);
+		return smallestTemperatureSpread.getDay();
+	}
 
-		// Your preparation code …
-		
-		try {	
-			FootballMapper footballMapper = new FootballMapper();
-			WeatherMapper weatherMapper = new WeatherMapper();
-	        List<FootballDataSet> allFootballData = footballMapper.MapData();
-	        List<WeatherDataSet> allWeatherData = weatherMapper.MapData();
-	        
-	        DataAnalyzer dataAnalyzer = new DataAnalyzer();
-	        FootballDataSet smallestGoalSpread = dataAnalyzer.GetSmallestGoalSpread(allFootballData);
-	        WeatherDataSet smallestTemperatureSpread = dataAnalyzer.GetSmallestTemperatureSpread(allWeatherData);
-	        
-			System.out.printf("Day with smallest temperature spread : %s%n", smallestTemperatureSpread.getDay());
-
-			System.out.printf("Team with smallest goal spread       : %s%n", smallestGoalSpread.getTeam());
-	        
-            
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+	public static String GetSmallestGoalSpread() throws IOException {
+		FootballMapper footballMapper = new FootballMapper();
+		List<FootballDataSet> allFootballData = footballMapper.MapData();
+		DataAnalyzer dataAnalyzer = new DataAnalyzer();
+		FootballDataSet smallestGoalSpread = dataAnalyzer.GetSmallestGoalSpread(allFootballData);
+		return smallestGoalSpread.getTeam();
 
 	}
-		
-}
 
+	public static void main(String... args) {
+
+		// Your preparation code …
+
+		try {
+			System.out.printf("Day with smallest temperature spread : %s%n", GetSmallestTemperatureSpread());
+			System.out.printf("Team with smallest goal spread       : %s%n", GetSmallestGoalSpread());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+}
